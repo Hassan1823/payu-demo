@@ -49,19 +49,20 @@ export default function PaymentForm({ amount, productName }: PaymentFormProps) {
         firstname: "Test User",
         email: "test@test.com",
         phone: "9876543210",
-        surl: "https://payu-demo-five.vercel.app/api/payu-response",
-        furl: "https://payu-demo-five.vercel.app/api/payu-response",
+        surl: "https://payu-demo-five.vercel.app/api/payu",
+        furl: "https://payu-demo-five.vercel.app/api/payu",
         hash: hash,
         service_provider: "payu_paisa",
-        curl: "https://payu-demo-five.vercel.app/api/payu-response",
+        curl: "https://payu-demo-five.vercel.app/api/payu",
         udf1: "",
         udf2: "",
         udf3: "",
         udf4: "",
         udf5: "",
+        pg: "CC", // Specify payment gateway as Credit Card
       };
 
-      console.log("Payment Parameters:", params);
+      console.log("Payment Parameters:", JSON.stringify(params, null, 2));
 
       // Add parameters to form
       Object.entries(params).forEach(([key, value]) => {
