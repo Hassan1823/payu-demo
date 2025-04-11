@@ -11,13 +11,20 @@ interface PaymentFormProps {
 export default function PaymentForm({ amount, productName }: PaymentFormProps) {
   const [loading, setLoading] = useState(false);
 
+  const generateTransactionId = () => {
+    // Generate a random string for transaction ID
+    const timestamp = Date.now();
+    const random = Math.floor(Math.random() * 1000);
+    return `TXN${timestamp}${random}`;
+  };
+
   const handlePayment = async () => {
     setLoading(true);
     try {
       // PayU test credentials
       const merchantKey = "gtKFFx";
       const salt = "4R38IvwiV57FwVpsgOvTXBdLE4tHUXFW";
-      const txnId = `TXN${Date.now()}`;
+      const txnId = generateTransactionId();
 
       // Create hash string in the exact format required by PayU
       const hashString = `${merchantKey}|${txnId}|${amount}|${productName}|Test User|test@test.com|||||||||||${salt}`;
