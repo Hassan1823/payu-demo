@@ -21,10 +21,12 @@ export default function PaymentForm({ amount, productName }: PaymentFormProps) {
 
       // Create hash string in the exact format required by PayU
       const hashString = `${merchantKey}|${txnId}|${amount}|${productName}|Test User|test@test.com|||||||||||${salt}`;
+      console.log("Hash String:", hashString);
 
       // Calculate hash on the server side
       const hashResponse = await axios.post("/api/payu-hash", { hashString });
       const hash = hashResponse.data.v1;
+      console.log("Generated Hash:", hash);
 
       // Create form and submit
       const form = document.createElement("form");
@@ -40,17 +42,19 @@ export default function PaymentForm({ amount, productName }: PaymentFormProps) {
         firstname: "Test User",
         email: "test@test.com",
         phone: "9876543210",
-        surl: "https://your-project-name.vercel.app/payment/success",
-        furl: "https://your-project-name.vercel.app/payment/failure",
+        surl: "https://payu-demo-five.vercel.app/payment/success",
+        furl: "https://payu-demo-five.vercel.app/payment/failure",
         hash: hash,
         service_provider: "payu_paisa",
-        curl: "https://your-project-name.vercel.app/payment/cancel",
+        curl: "https://payu-demo-five.vercel.app/payment/cancel",
         udf1: "",
         udf2: "",
         udf3: "",
         udf4: "",
         udf5: "",
       };
+
+      console.log("Payment Parameters:", params);
 
       // Add parameters to form
       Object.entries(params).forEach(([key, value]) => {

@@ -4,9 +4,12 @@ import crypto from "crypto";
 export async function POST(request: Request) {
   try {
     const { hashString } = await request.json();
+    console.log("Received hash string:", hashString);
 
     // Calculate SHA512 hash
     const hash = crypto.createHash("sha512").update(hashString).digest("hex");
+
+    console.log("Calculated hash:", hash);
 
     // Return the hash in the format PayU expects
     return NextResponse.json({
